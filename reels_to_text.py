@@ -6,7 +6,7 @@ view counts turned on, then writes one row per reel: the hook (first sentence), 
 transcript, plays/views, likes, comments and the AI summary.
 
 Usage:
-    python reels_to_text.py --profile mkbhd --max 20
+    python reels_to_text.py --profile nasa --max 20
     python reels_to_text.py https://www.instagram.com/reel/<code>/ [...]
     python reels_to_text.py --audio 271328201351336 --max 30 --out sound.jsonl
     ...--out ends in .csv (default reels.csv) or .jsonl
@@ -54,7 +54,7 @@ def _field(run, camel: str, snake: str):
 
 
 def profile_reels_url(p: str) -> str:
-    """'mkbhd', '@mkbhd' or a profile URL -> the profile's reels tab."""
+    """'nasa', '@nasa' or a profile URL -> the profile's reels tab."""
     handle = re.sub(r"^https?://(www\.)?instagram\.com/", "", p).lstrip("@").split("/")[0]
     return f"https://www.instagram.com/{handle}/reels/"
 
@@ -139,7 +139,7 @@ def main() -> None:
     run_input: dict = {
         "startUrls": urls,
         "maxItems": args.max,
-        "includeTranscript": True,  # $0.004 per started minute of speech; music-only reels are free
+        "includeTranscript": True,  # $0.004 per started minute; reels with no detectable speech are usually skipped
         "includeAiSummary": True,  # Instagram's own AI title + summary, included in the row price
         "includeVideoViews": True,  # adds video.viewCount next to video.playCount, included
     }

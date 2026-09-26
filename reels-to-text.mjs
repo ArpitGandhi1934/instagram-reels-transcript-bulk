@@ -6,7 +6,7 @@
 // transcript, plays/views, likes, comments and the AI summary.
 //
 // Usage:
-//   node --env-file=.env reels-to-text.mjs --profile mkbhd --max 20
+//   node --env-file=.env reels-to-text.mjs --profile nasa --max 20
 //   node --env-file=.env reels-to-text.mjs https://www.instagram.com/reel/<code>/ [...]
 //   node --env-file=.env reels-to-text.mjs --audio 271328201351336 --max 30 --out sound.jsonl
 //   ...--out ends in .csv (default reels.csv) or .jsonl
@@ -38,7 +38,7 @@ function parseArgs(argv) {
     return opts;
 }
 
-// "mkbhd", "@mkbhd" or a profile URL -> the profile's reels tab
+// "nasa", "@nasa" or a profile URL -> the profile's reels tab
 function profileReelsUrl(p) {
     const handle = p.replace(/^https?:\/\/(www\.)?instagram\.com\//, '').replace(/^@/, '').split('/')[0];
     return `https://www.instagram.com/${handle}/reels/`;
@@ -100,7 +100,7 @@ async function main() {
     const input = {
         startUrls: opts.urls,
         maxItems: opts.max,
-        includeTranscript: true, // $0.004 per started minute of speech; music-only reels are free
+        includeTranscript: true, // $0.004 per started minute; reels with no detectable speech are usually skipped
         includeAiSummary: true, // Instagram's own AI title + summary, included in the row price
         includeVideoViews: true, // adds video.viewCount next to video.playCount, included
     };

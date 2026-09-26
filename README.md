@@ -6,15 +6,15 @@ Get the **Instagram Reels transcript in bulk** for a whole profile, a list of re
 
 ## What you get
 
-Real output from a test run on 2026-09-26 (`--profile mkbhd --max 3`, full rows in [`samples/profile-mkbhd.csv`](samples/profile-mkbhd.csv)):
+Real output from a test run on 2026-09-26 (`--profile nasa --max 3`, rows in [`samples/profile-nasa.csv`](samples/profile-nasa.csv)). NASA's reels tab includes collab reels, so `owner` can be a co-author. Transcripts, AI summaries and captions in `samples/` are cut to one sentence.
 
 | Reel | Length | Plays | Views | Likes | Hook (first sentence) | Instagram AI title |
 |---|---:|---:|---:|---:|---|---|
-| [DdRy_nDzZNS](https://www.instagram.com/reel/DdRy_nDzZNS/) | 40s | 2,269,553 | 1,037,562 | 76,288 | Okay, I'm not a designer, but I I do think that this has to be the greatest ruler ever made. | The Ruler That Redefines Accuracy: A Review and Analysis |
-| [DdFHJkpyy58](https://www.instagram.com/reel/DdFHJkpyy58/) | 20s | 30,967,481 | 13,495,520 | 1,137,679 | Okay, so like it shows here and if I open it, it also shows, right? | Improve Your Space with Modern TV Setup Solutions for Home Decor |
-| [DdB_gwDzaT8](https://www.instagram.com/reel/DdB_gwDzaT8/) | 82s | 76,823 | 43,057 | 1,837 | Hey Benny. | Cute Robot Camera Spins Around in a Self-Balancing Dance |
+| [DdhFkS7KGkZ](https://www.instagram.com/reel/DdhFkS7KGkZ/) | 23s | 6,859,396 | 1,689,484 | 44,543 | and that's just part of it, dude. | Meet Our New Leader: Unlocking the Power of Innovation |
+| [DdRyQxKteC1](https://www.instagram.com/reel/DdRyQxKteC1/) | 58s | 9,504,151 | 3,027,921 | 224,465 | *(no speech found)* | Dancing on the ISS Sets the Tone for a Great Week |
+| [DdPsDCWRT-u](https://www.instagram.com/reel/DdPsDCWRT-u/) | 45s | 5,579,947 | 917,530 | 59,578 | NASA is inbound to the NFL. | NASA Takes the Field with Exciting Football Flyover in Pittsburgh |
 
-That run cost $0.0217: 3 rows at $0.0019 plus 4 started transcript minutes at $0.004 (40 s and 20 s are one minute each, 82 s is two).
+That run cost $0.0177: 3 rows at $0.0019 plus 3 started transcript minutes at $0.004. Each reel is under a minute, and the no-speech reel was still transcribed and billed (see [Limits](#limits)).
 
 Columns (CSV) or keys (JSONL):
 
@@ -31,7 +31,7 @@ Columns (CSV) or keys (JSONL):
 | `ai_title`, `ai_summary` | Instagram's own AI-written title and summary of the post, when it has one |
 | `caption`, `audio` | Post caption and the sound it uses |
 
-More samples: [`samples/reel-urls.csv`](samples/reel-urls.csv) (two reel URLs), [`samples/profile-nasa.jsonl`](samples/profile-nasa.jsonl) (includes a reel with no speech) and [`samples/audio-nasaadmin.jsonl`](samples/audio-nasaadmin.jsonl) (audio page).
+More samples: [`samples/reel-urls.csv`](samples/reel-urls.csv) (a single reel URL: views but no plays), [`samples/profile-nasa.jsonl`](samples/profile-nasa.jsonl) (the rows above as JSONL, including the reel with no speech) and [`samples/audio-nasaadmin.jsonl`](samples/audio-nasaadmin.jsonl) (audio page).
 
 ## Quick start
 
@@ -42,7 +42,7 @@ More samples: [`samples/reel-urls.csv`](samples/reel-urls.csv) (two reel URLs), 
 
 ```bash
 npm install
-node --env-file=.env reels-to-text.mjs --profile mkbhd --max 20
+node --env-file=.env reels-to-text.mjs --profile nasa --max 20
 node --env-file=.env reels-to-text.mjs https://www.instagram.com/reel/DdPsDCWRT-u/ --out reels.jsonl
 node --env-file=.env reels-to-text.mjs --audio 29369820619287776 --max 30 --out sound.csv
 ```
@@ -51,7 +51,7 @@ node --env-file=.env reels-to-text.mjs --audio 29369820619287776 --max 30 --out 
 
 ```bash
 pip install -r requirements.txt
-python reels_to_text.py --profile mkbhd --max 20
+python reels_to_text.py --profile nasa --max 20
 python reels_to_text.py --file reels.example.txt --out reels.jsonl
 python reels_to_text.py --audio 29369820619287776 --max 30 --until "30 days"
 ```
@@ -87,8 +87,12 @@ Pay per result, no subscription. Prices checked on 2026-09-26 from the Apify Sto
 | Option | Per reel row | Transcript | One 30-second reel, all-in | 1,000 such reels |
 |---|---:|---:|---:|---:|
 | **[yugenox/instagram-scraper][store-ig]** (this repo) | $0.0019 | $0.004 per started minute | **$0.0059** | **$5.90** |
-| apify/instagram-reel-scraper | $0.0026 | $0.048 per started minute | $0.0506 | $50.60 |
+| apple_yang/instagram-transcripts-scraper | $0.001 | $0.0045 per started minute | $0.0055 | $5.50 |
+| steadyfetch/instagram-reel-transcript-scraper | | $0.015 per reel, first 3 minutes included | $0.015 | $15.00 |
 | sian.agency/instagram-ai-transcript-extractor | | $0.028 per transcribed reel | $0.028 | $28.00 |
+| apify/instagram-reel-scraper | $0.0026 | $0.048 per started minute | $0.0506 | $50.60 |
+
+apple_yang is slightly lower for reels under a minute. From two started minutes up we're slightly lower (at 3 minutes, $0.0139 against $0.0145), and our row includes the full post record, Instagram's AI summary and the latest comments. Prices by reel length for all six tools: [Instagram reel transcript tools compared](https://yugenox-data.vercel.app/compare/instagram-reel-transcript-tools).
 
 Our row price already includes Instagram's AI summary, the views count and the latest comments. Apify's free plan includes monthly credit you can spend on this, but free-plan runs of this Actor are currently limited to 10 results each. Other Actors in the table also charge small per-run start fees.
 
@@ -106,7 +110,7 @@ Here you need one Apify token.
 
 - **Public reels only.** Private accounts are skipped. Nothing here signs in to Instagram.
 - **Plays and views are not verified counts.** `plays` (`video.playCount`) and `views` (`video.viewCount`) are two different Instagram metrics, read logged-out. They can differ from what the creator sees in Insights, so don't use them to settle creator payouts. Plays come from the profile's reels tab, so single reel URLs usually have views but no plays.
-- **Transcripts** cover videos up to 15 minutes; longer ones are skipped at no charge. Reels set to a licensed song are skipped and not charged. Other videos are transcribed and billed per started minute even if they turn out to have no speech (`no speech found`). A song uploaded as someone's "original audio" is transcribed as lyrics.
+- **Transcripts** cover videos up to 15 minutes; longer ones are skipped at no charge. Reels set only to a licensed song are usually skipped and not charged. Other videos are transcribed and billed per started minute even if they turn out to have no speech (`no speech found`). A song uploaded as someone's "original audio" is transcribed as lyrics.
 - **Search limits.** If you pass hashtag or keyword pages instead, Instagram shows logged-out visitors a curated set of top posts, about 60 per term. Comments come newest first and don't include replies.
 - The AI title and summary exist only when Instagram has generated one for that post.
 
@@ -119,7 +123,8 @@ Here you need one Apify token.
 
 ## Legal
 
-- Not affiliated with Instagram or Meta. Instagram is a trademark of Meta Platforms, Inc.
+- Uses public data only. Not affiliated with or endorsed by Instagram or Meta. Instagram is a trademark of Meta Platforms, Inc.
+- Transcripts, AI summaries and captions in `samples/` are shortened to one sentence; they belong to the accounts that posted them.
 - The Actor collects publicly available data only. Usernames, captions and transcripts of people's speech can be personal data; follow GDPR, PIPEDA, CCPA and Instagram's terms when you store or publish results, and respect creators' copyright when you reuse their words. See [Is web scraping legal?][legal].
 - Input keys verified against the Actor's input schema on 2026-09-26 (build 0.2.7).
 - MIT licensed. Made by Yugenox Corporation.

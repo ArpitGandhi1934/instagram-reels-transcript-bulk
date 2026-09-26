@@ -9,7 +9,7 @@
     "node": ">=20.6"
   },
   "scripts": {
-    "start": "node --env-file=.env reels-to-text.mjs --profile mkbhd --max 5"
+    "start": "node --env-file=.env reels-to-text.mjs --profile nasa --max 5"
   },
   "dependencies": {
     "apify-client": "^2.25.0"
