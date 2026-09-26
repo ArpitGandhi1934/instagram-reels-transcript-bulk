@@ -114,7 +114,7 @@ Here you need one Apify token.
 
 - Every input mode of the Instagram and YouTube scrapers in Node, Python, curl, Apify CLI and Google Sheets: [youtube-instagram-scraper-examples](https://github.com/ArpitGandhi1934/youtube-instagram-scraper-examples)
 - YouTube dislike counts in bulk: [youtube-dislike-count-bulk](https://github.com/ArpitGandhi1934/youtube-dislike-count-bulk)
-- Guides, pricing math and use cases: [yugenox-data.vercel.app](https://yugenox-data.vercel.app)
+- Guides on [yugenox-data.vercel.app](https://yugenox-data.vercel.app): [Instagram Reels transcripts](https://yugenox-data.vercel.app/instagram/reels-transcripts), [reel transcript tools compared](https://yugenox-data.vercel.app/compare/instagram-reel-transcript-tools), [reels by audio](https://yugenox-data.vercel.app/instagram/reels-by-audio), [pricing calculator](https://yugenox-data.vercel.app/pricing-calculator)
 - The Actor itself, with its input form, output schema and reviews: [Instagram Scraper on Apify][store-ig]. Other ways to call it (clients, OpenAPI, MCP for AI agents) are on its [API page][api-ig].
 
 ## Legal
