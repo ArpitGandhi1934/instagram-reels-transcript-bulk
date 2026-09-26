@@ -1,0 +1,17 @@
+{
+  "name": "instagram-reels-transcript-bulk",
+  "version": "1.0.0",
+  "description": "Instagram Reels to text in bulk: transcripts, hook, plays/views and AI summary to CSV or JSONL via the yugenox/instagram-scraper Apify Actor.",
+  "type": "module",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.6"
+  },
+  "scripts": {
+    "start": "node --env-file=.env reels-to-text.mjs --profile mkbhd --max 5"
+  },
+  "dependencies": {
+    "apify-client": "^2.25.0"
+  }
+}

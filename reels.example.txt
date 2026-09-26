@@ -1,0 +1,4 @@
+# One Instagram URL per line: reels (/reel/<code>/), posts (/p/<code>/), profiles' reels tabs
+# (/<handle>/reels/) or audio pages (/reels/audio/<id>/). Lines starting with # are ignored.
+https://www.instagram.com/reel/DdPsDCWRT-u/
+https://www.instagram.com/reel/DdRy_nDzZNS/
